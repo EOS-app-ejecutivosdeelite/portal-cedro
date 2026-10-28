@@ -145,3 +145,64 @@ h1 em { color: var(--gold); font-weight: 400; }
 .learning-guide strong { display: block; color: var(--cream); font-weight: 500; margin-bottom: 6px; }
 .learning-guide li span { color: var(--muted); }
 @media (max-width: 700px) { .learning-guide ol { grid-template-columns: 1fr; gap: 18px; } }
+
+/* Jornada Cedro: identidad del evento. La firma institucional conserva su paleta. */
+:root { color-scheme: light; --event-blue: #0789d4; --event-navy: #073978; --event-magenta: #c300bd; }
+body { background: #f2f8fd; color: var(--event-navy); }
+.site-header { background: #101111; color: #E6E2DA; border-bottom: 3px solid #A6824A; }
+.header-note { color: #E6E2DA; }
+.portal { padding-top: 48px; }
+.access-gate { align-items: start; gap: 56px; }
+.welcome > .eyebrow { color: var(--event-navy); margin-bottom: 14px; }
+h1 { font-family: var(--sans); font-weight: 500; letter-spacing: -.045em; }
+.welcome h1 { font-size: clamp(42px, 4.5vw, 64px); color: var(--event-navy); margin-bottom: 16px; }
+.event-ribbon { display: inline-block; margin: 0 0 28px; padding: 8px 18px; background: var(--event-magenta); color: #fff; font-size: 18px; font-weight: 500; transform: rotate(-2deg); }
+.event-poster { margin: 0; }
+.event-poster img { display: block; width: 100%; height: auto; border-radius: 18px; box-shadow: 0 14px 36px #07397818; }
+.event-poster figcaption { font-size: 11px; color: #385a7b; padding: 12px 4px; }
+.gate-panel { position: sticky; top: 28px; background: #fff; border: 1px solid #c9deef; border-top: 5px solid var(--event-blue); border-radius: 18px; overflow: hidden; box-shadow: 0 16px 48px #0739780c; }
+.panel-top { background: #eaf5fd; border-color: #c9deef; color: var(--event-navy); }
+.panel-top .eyebrow { color: var(--event-navy); }
+.gate-title { font-family: var(--sans); font-weight: 500; font-size: 34px; }
+.gate-description { color: #385a7b; font-size: 14px; line-height: 1.75; }
+.access-form { padding-top: 32px; }
+.gate-field { font-size: 13px; font-weight: 500; }
+.gate-field input { background: #f6faff; color: var(--event-navy); border: 1px solid #aac7df; border-radius: 8px; font-size: 16px; min-height: 50px; }
+.gate-field input::placeholder { color: #56708a; }
+.gate-field input:hover, .gate-field input:focus { border-color: var(--event-blue); outline-color: var(--event-blue); }
+.gate-submit { background: var(--event-navy); border-color: var(--event-navy); color: #fff; border-radius: 8px; min-height: 54px; font-size: 15px; }
+.gate-submit:hover:not(:disabled) { background: #0756a6; border-color: #0756a6; color: #fff; }
+.gate-hint, .panel-bottom { color: #385a7b; }
+.panel-bottom { border-color: #c9deef; background: #f6faff; }
+.panel-bottom > span { color: var(--event-magenta); }
+.gate-feedback:not(:empty) { background: #fff2fc; color: #073978; border-color: var(--event-magenta); }
+.site-footer { color: #385a7b; border-color: #c9deef; }
+.footer-divider { color: var(--event-magenta); }
+.library-header { padding: 32px; background: var(--event-blue); border-radius: 18px; color: #fff; }
+.library-header .eyebrow, .library-header > p { color: #fff; }
+.library-header h1 em { color: #fff; font-style: normal; }
+.library-header h1 { font-size: clamp(32px, 3.5vw, 46px); }
+.library-bar { border-color: #c9deef; }
+.library-bar h2, .module-title { font-family: var(--sans); font-weight: 500; }
+.library-bar .eyebrow { color: var(--event-navy); }
+.module-card { background: #fff; border-color: #c9deef; border-radius: 14px; overflow: hidden; }
+.module-marker { color: var(--event-magenta); }
+.module-format, .module-caption { color: #385a7b; }
+.module-caption > span { color: var(--event-blue); }
+.video-embed { border-color: #c9deef; }
+.learning-guide { background: #fff; border-color: #c9deef; border-radius: 12px; }
+.learning-guide summary > span, .learning-guide li { color: var(--event-magenta); }
+.learning-guide strong { color: var(--event-navy); }
+.learning-guide li span { color: #385a7b; }
+:focus-visible { outline-color: var(--event-navy); }
+@media (max-width: 950px) { .access-gate { gap: 28px; } .gate-title { font-size: 28px; } }
+@media (max-width: 700px) {
+ .gate-panel { position: static; }
+ .event-poster { max-width: 360px; margin-inline: auto; }
+ .welcome h1 { font-size: 43px; }
+ .event-ribbon { font-size: 16px; }
+ .library-header { padding: 24px; }
+ .library-bar { flex-direction: column; gap: 8px; }
+ .brand-property { font-size: 15px; }
+ .portal { padding-top: 32px; }
+}
