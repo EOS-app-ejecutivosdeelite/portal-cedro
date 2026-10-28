@@ -129,3 +129,19 @@ h1 em { color: var(--gold); font-weight: 400; }
 }
 @media (max-width: 380px) { .field-row { grid-template-columns: 1fr; gap: 0; } .panel-top, .access-form { padding-inline: 20px; } .brand { gap: 12px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+/* Interior del taller: orientación y numeración automática de las clases. */
+.module-list { counter-reset: lesson; }
+.module-card { counter-increment: lesson; }
+.module-marker::before { content: counter(lesson, decimal-leading-zero); }
+.module-marker { font: 400 14px var(--mono); min-width: 28px; }
+.learning-guide { border: 1px solid var(--line); background: var(--forest); }
+.learning-guide summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 24px; cursor: pointer; font-weight: 500; font-size: 13px; list-style: none; }
+.learning-guide summary::-webkit-details-marker { display: none; }
+.learning-guide summary > span { color: var(--gold); font-size: 20px; }
+.learning-guide[open] summary > span { transform: rotate(45deg); }
+.learning-guide ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 0; padding: 8px 24px 24px 44px; }
+.learning-guide li { padding-left: 4px; font-size: 12px; color: var(--gold); }
+.learning-guide strong { display: block; color: var(--cream); font-weight: 500; margin-bottom: 6px; }
+.learning-guide li span { color: var(--muted); }
+@media (max-width: 700px) { .learning-guide ol { grid-template-columns: 1fr; gap: 18px; } }
