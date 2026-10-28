@@ -1,12 +1,9 @@
-// MOTOR — gate de acceso. Pide nombre/email/jefatura/whatsapp, lo manda al
-// webhook de GHL (misma integración que ya usan las landings de Community
-// Week — ver Documents/landings/_webhook_snippet.html) y recién ahí muestra
-// los módulos. Una vez que alguien entra, no se lo vuelve a pedir en este
+// MOTOR — gate de acceso. Pide nombre/email/jefatura/whatsapp, lo manda a
+// /api/ingreso (que manda los mails con Resend) y recién ahí muestra los
+// módulos. Una vez que alguien entra, no se lo vuelve a pedir en este
 // navegador (localStorage) — no es un login real, es captura de datos.
 (function () {
-  // PEGAR ACÁ LA URL DEL WEBHOOK (GHL → Automation → Workflows →
-  // + Create Workflow → Trigger "Inbound Webhook" → copiar la URL).
-  const GHL_WEBHOOK_URL = "PEGAR_URL_DEL_WEBHOOK_DE_GHL_ACA";
+  const INGRESO_ENDPOINT = "/api/ingreso";
   const STORAGE_KEY = "cedro_access_granted";
 
   const gate = document.getElementById("access-gate");
@@ -34,8 +31,6 @@
       email: form.email.value.trim(),
       jefatura: form.jefatura.value.trim(),
       whatsapp: form.whatsapp.value.trim(),
-      source: "Portal Cedro - Capacitación",
-      timestamp: new Date().toISOString(),
     };
 
     submitBtn.disabled = true;
@@ -43,11 +38,10 @@
     feedback.textContent = "";
 
     try {
-      const resp = await fetch(GHL_WEBHOOK_URL, {
+      const resp = await fetch(INGRESO_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-        mode: "cors",
       });
       if (!resp.ok) throw new Error("Respuesta no OK: " + resp.status);
 
