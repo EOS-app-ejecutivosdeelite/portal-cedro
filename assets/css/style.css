@@ -36,6 +36,11 @@ body {
   gap: 32px;
 }
 
+.module-list[hidden],
+.access-gate[hidden] {
+  display: none;
+}
+
 .module-card {
   border: 1px solid var(--border);
   border-radius: 8px;
