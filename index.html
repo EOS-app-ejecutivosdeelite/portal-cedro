@@ -11,7 +11,31 @@
   <h1 class="site-title">Portal de Capacitación</h1>
 </header>
 
-<main class="module-list" id="module-list">
+<section class="access-gate" id="access-gate">
+  <form class="access-form" id="access-form">
+    <h2 class="gate-title">Ingresá tus datos para acceder</h2>
+    <label class="gate-field">
+      <span>Nombre</span>
+      <input type="text" name="nombre" required>
+    </label>
+    <label class="gate-field">
+      <span>Email</span>
+      <input type="email" name="email" required>
+    </label>
+    <label class="gate-field">
+      <span>Jefatura</span>
+      <input type="text" name="jefatura" required>
+    </label>
+    <label class="gate-field">
+      <span>WhatsApp</span>
+      <input type="tel" name="whatsapp" required>
+    </label>
+    <button type="submit" class="gate-submit">Ingresar</button>
+    <p class="gate-feedback" id="gate-feedback"></p>
+  </form>
+</section>
+
+<main class="module-list" id="module-list" hidden>
   <!-- Renderizado por JS desde assets/js/modules-data.js -->
 </main>
 
@@ -26,5 +50,6 @@
 
 <script src="assets/js/modules-data.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/access-gate.js"></script>
 </body>
 </html>
