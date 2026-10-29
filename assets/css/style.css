@@ -207,3 +207,10 @@ h1 { font: 800 clamp(46px,5.5vw,76px)/1.04 var(--sans); letter-spacing: -.055em;
  .welcome-message h2, .program-section h2 { font-size: 24px; }
  .speaker { margin-left: 4px; }
 }
+
+/* Bienvenida: primer video del recorrido, antes del programa y la preparación con Gio. */
+.welcome-video { margin-top: 24px; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.welcome-video-icon { flex-shrink: 0; display: grid; place-items: center; width: 36px; height: 40px; border-radius: 8px; color: var(--magenta); background: #fff2fc; font-size: 13px; }
+.welcome-video-next { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 24px; }
+.welcome-video-next > span { color: var(--muted); font-size: 12px; }
+@media (max-width: 760px) { .welcome-video-next { align-items: flex-start; flex-direction: column; gap: 4px; padding: 14px 18px; } }
