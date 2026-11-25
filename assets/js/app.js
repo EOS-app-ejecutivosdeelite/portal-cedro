@@ -2,31 +2,17 @@
   const menu = document.getElementById("course-menu");
   const lessons = document.getElementById("course-lessons");
   const template = document.getElementById("module-card-template");
-  const loadVideo = new IntersectionObserver((entries, observer) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      observer.unobserve(entry.target);
-      entry.target.querySelector(".video-load").click();
-    }
-  }, { rootMargin: "200px" });
+  let closeActiveVideo;
 
-  async function showVideo(lesson, iframe, status) {
-    status.textContent = "Cargando video…";
-    try {
-      if (lesson.bunnyId) {
-        const response = await fetch(`/api/video?guid=${encodeURIComponent(lesson.bunnyId)}`);
-        if (!response.ok) throw new Error("Video no disponible");
-        const { url } = await response.json();
-        if (!url) throw new Error("Falta la URL del video");
-        iframe.src = url;
-      } else {
-        iframe.src = `https://www.loom.com/embed/${encodeURIComponent(lesson.loomId)}`;
-      }
-      iframe.hidden = false;
-      status.hidden = true;
-    } catch {
-      status.textContent = "El video no cargó, recargá la página";
+  async function videoUrl(lesson, signal) {
+    if (!lesson.bunnyId) {
+      return `https://www.loom.com/embed/${encodeURIComponent(lesson.loomId)}`;
     }
+    const response = await fetch(`/api/video?guid=${encodeURIComponent(lesson.bunnyId)}`, { signal });
+    if (!response.ok) throw new Error("Video no disponible");
+    const { url } = await response.json();
+    if (!url) throw new Error("Falta la URL del video");
+    return url;
   }
 
   for (const module of MODULES) {
@@ -79,18 +65,44 @@
         setSeen(seen);
       });
 
-      const iframe = card.querySelector("iframe");
+      const video = card.querySelector(".video-embed");
+      const iframe = video.querySelector("iframe");
+      iframe.remove();
       iframe.title = lesson.title;
-      const status = card.querySelector(".video-status");
-      iframe.addEventListener("error", () => {
-        iframe.hidden = true;
+      const status = video.querySelector(".video-status");
+      const button = status.querySelector(".video-load");
+
+      function showError() {
+        iframe.remove();
         status.hidden = false;
         status.textContent = "El video no cargó, recargá la página";
+      }
+      iframe.addEventListener("error", showError);
+
+      button.addEventListener("click", async () => {
+        closeActiveVideo?.();
+        const controller = new AbortController();
+        closeActiveVideo = () => {
+          controller.abort();
+          iframe.remove();
+          iframe.removeAttribute("src");
+          status.replaceChildren(button);
+          status.hidden = false;
+        };
+
+        status.textContent = "Cargando video…";
+        try {
+          const url = await videoUrl(lesson, controller.signal);
+          if (controller.signal.aborted) return;
+          iframe.src = url;
+          iframe.hidden = false;
+          video.append(iframe);
+          status.hidden = true;
+        } catch {
+          if (!controller.signal.aborted) showError();
+        }
       });
-      const video = card.querySelector(".video-embed");
-      video.querySelector(".video-load").addEventListener("click", () => showVideo(lesson, iframe, status), { once: true });
       section.append(card);
-      loadVideo.observe(video);
     }
   }
 })();
