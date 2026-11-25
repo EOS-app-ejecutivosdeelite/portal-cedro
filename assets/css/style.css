@@ -36,7 +36,7 @@ body:has(.access-gate:not([hidden])) { background: var(--blue); }
 .access-gate::before { content: ''; position: absolute; z-index: -1; inset: 0; background-image: var(--honeycomb); mask-image: linear-gradient(120deg,transparent 12%,#000 90%); pointer-events: none; }
 .welcome { position: relative; color: #fff; }
 .event-label { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px; padding: 7px 13px; color: #fff; border: 1px solid #ffffff66; border-radius: 5px; font: 500 11px/1.5 var(--mono); letter-spacing: .14em; }
-.event-label > span { width: 8px; height: 8px; background: #fff; clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); }
+.event-label > span { width: 8px; height: 8px; background: #fff; border-radius: 8px; }
 .team-label { font: 400 10px/1.6 var(--mono); letter-spacing: .12em; margin-bottom: 24px; }
 h1 { font: 800 clamp(46px,5.5vw,76px)/1.04 var(--sans); letter-spacing: -.055em; margin-bottom: 30px; }
 .welcome h1 > span { display: inline-block; position: relative; isolation: isolate; padding: 0 10px 8px 0; }
@@ -44,7 +44,7 @@ h1 { font: 800 clamp(46px,5.5vw,76px)/1.04 var(--sans); letter-spacing: -.055em;
 .welcome-copy { font-size: 16px; line-height: 1.8; margin: 34px 0 30px; max-width: 430px; }
 .team-path { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; border-top: 1px solid #ffffff55; padding-top: 26px; max-width: 480px; }
 .team-path > div { display: flex; flex-direction: column; align-items: flex-start; position: relative; }
-.path-icon { display: grid; place-items: center; width: 37px; height: 42px; margin-bottom: 12px; color: var(--navy); background: #fff; clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); font: 500 11px var(--mono); }
+.path-icon { display: grid; place-items: center; width: 37px; height: 37px; margin-bottom: 12px; color: var(--navy); background: #fff; border-radius: 8px; font: 500 11px var(--mono); }
 .team-path strong { font-size: 15px; font-weight: 700; }
 .team-path div > span:last-child { font-size: 11px; color: #fff; margin-top: 3px; }
 .welcome-signature { display: flex; align-items: center; gap: 10px; font-size: 12px; margin: 30px 0 0; }
@@ -96,8 +96,7 @@ h1 { font: 800 clamp(46px,5.5vw,76px)/1.04 var(--sans); letter-spacing: -.055em;
 .library-bar .eyebrow > span { color: var(--magenta); padding-left: 10px; }
 .module-card { counter-increment: lesson; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; }
 .module-heading { display: flex; align-items: center; gap: 16px; padding: 22px 24px; }
-.module-marker { flex-shrink: 0; display: grid; place-items: center; width: 36px; height: 40px; background: #eaf5fd; color: var(--navy); clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); font: 500 12px var(--mono); }
-.module-marker::before { content: counter(lesson,decimal-leading-zero); }
+.module-marker { flex-shrink: 0; display: grid; place-items: center; width: 42px; height: 42px; background: #eaf5fd; color: var(--navy); border-radius: 8px; font: 500 12px var(--mono); }
 .module-title { margin: 0; font: 700 20px/1.4 var(--sans); letter-spacing: -.02em; }
 .module-format { margin-left: auto; white-space: nowrap; color: var(--muted); font: 400 9px var(--mono); }
 .video-embed { position: relative; aspect-ratio: 16/9; background: #101111; }
@@ -210,7 +209,21 @@ h1 { font: 800 clamp(46px,5.5vw,76px)/1.04 var(--sans); letter-spacing: -.055em;
 
 /* Bienvenida: primer video del recorrido, antes del programa y la preparación con Gio. */
 .welcome-video { margin-top: 24px; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.welcome-video-icon { flex-shrink: 0; display: grid; place-items: center; width: 36px; height: 40px; border-radius: 8px; color: var(--magenta); background: #fff2fc; font-size: 13px; }
+.welcome-video-icon { flex-shrink: 0; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 8px; color: var(--magenta); background: #fff2fc; font-size: 13px; }
 .welcome-video-next { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 24px; }
 .welcome-video-next > span { color: var(--muted); font-size: 12px; }
 @media (max-width: 760px) { .welcome-video-next { align-items: flex-start; flex-direction: column; gap: 4px; padding: 14px 18px; } }
+
+#course-menu > div + div { margin-top: 18px; }
+#course-menu .sidebar-label { display: block; margin: 12px 0 4px; }
+.portal-sidebar nav { max-height: calc(100dvh - 48px); overflow-y: auto; }
+.portal-sidebar .lesson-seen { margin-left: auto; color: var(--muted); }
+#course-lessons, .course-module { display: grid; gap: 20px; }
+.course-module h2 { margin: 12px 0 0; scroll-margin-top: 24px; }
+.lesson-duration { white-space: nowrap; font: 500 11px var(--mono); color: var(--muted); }
+.video-status { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; padding: 16px; color: #fff; text-align: center; }
+.mark-seen, .video-load { cursor: pointer; padding: 8px 12px; border: 1px solid currentColor; border-radius: 6px; background: #fff; color: var(--navy); font: 500 13px var(--sans); }
+.mark-seen[aria-pressed="true"] { background: #eaf5fd; }
+@media (max-width: 760px) {
+  .portal-sidebar nav { display: block; max-height: none; }
+}
