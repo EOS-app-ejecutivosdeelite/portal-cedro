@@ -5,6 +5,11 @@
 
 const crypto = require("crypto");
 
+// Inscripciones cerradas (Jere, 27/11/2026). Con false, /api/ingreso responde
+// 403 antes de leer el body: no manda correos ni el evento a Meta. Para
+// reabrir, poner true (y lo mismo en assets/js/access-gate.js).
+const INSCRIPCIONES_ABIERTAS = false;
+
 const FROM = "Academia de Elite <capacitacion@send.ejecutivosdeelite.com>";
 const NOTIFY_TO = "lucas@lucasalbo.com";
 const META_PIXEL_ID = "764837640846158";
@@ -63,6 +68,11 @@ async function sendMetaLead({ nombre, email, whatsapp }) {
 }
 
 module.exports = async function handler(req, res) {
+  if (!INSCRIPCIONES_ABIERTAS) {
+    res.status(403).json({ error: "Inscripciones cerradas" });
+    return;
+  }
+
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;

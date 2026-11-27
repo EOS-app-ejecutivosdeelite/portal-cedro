@@ -5,11 +5,16 @@
 (function () {
   const INGRESO_ENDPOINT = "/api/ingreso";
   const STORAGE_KEY = "cedro_access_granted";
+  // Inscripciones cerradas (Jere, 27/11/2026). Con false no se muestra el
+  // formulario sino el aviso de cierre; quien ya entró en este navegador sigue
+  // entrando. Para reabrir, poner true (y lo mismo en api/ingreso.js).
+  const INSCRIPCIONES_ABIERTAS = false;
 
   const gate = document.getElementById("access-gate");
   const moduleList = document.getElementById("module-list");
   const form = document.getElementById("access-form");
   const feedback = document.getElementById("gate-feedback");
+  const closed = document.getElementById("gate-closed");
 
   function unlock() {
     gate.hidden = true;
@@ -18,6 +23,12 @@
 
   if (localStorage.getItem(STORAGE_KEY) === "1") {
     unlock();
+    return;
+  }
+
+  if (!INSCRIPCIONES_ABIERTAS) {
+    form.hidden = true;
+    closed.hidden = false;
     return;
   }
 
